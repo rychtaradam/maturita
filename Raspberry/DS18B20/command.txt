@@ -1,0 +1,1 @@
+cmake . && make && ./DS18B20Reader "Sensor"
