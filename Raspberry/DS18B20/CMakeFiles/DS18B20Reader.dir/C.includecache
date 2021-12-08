@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/pi/Desktop/maturita/Raspberry/DS18B20/main.c
+stdio.h
+-
+time.h
+-
+signal.h
+-
+main.h
+/home/pi/Desktop/maturita/Raspberry/DS18B20/main.h
+sensor.h
+/home/pi/Desktop/maturita/Raspberry/DS18B20/sensor.h
+
+/home/pi/Desktop/maturita/Raspberry/DS18B20/main.h
+sensor.h
+/home/pi/Desktop/maturita/Raspberry/DS18B20/sensor.h
+
+/home/pi/Desktop/maturita/Raspberry/DS18B20/sensor.c
+sensor.h
+/home/pi/Desktop/maturita/Raspberry/DS18B20/sensor.h
+dirent.h
+-
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+
+/home/pi/Desktop/maturita/Raspberry/DS18B20/sensor.h
+stdio.h
+-
+
