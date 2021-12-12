@@ -54,34 +54,27 @@ const uint8_t digitToSegment[] = {
 
 const uint8_t blank[] = {0,0,0,0};
 
-uint8_t
-    m_pinClk,
-    m_pinDIO,
-    m_brightness;
+uint8_t m_pinClk, m_pinDIO, m_brightness;
     
-void TMstartWrite()
-	{
+void TMstartWrite() {
 	pinMode(m_pinDIO, OUTPUT);
 	delayMicroseconds(BITDELAY);
-	}
+}
 
-void TMstopWrite()
-	{
+void TMstopWrite() {
 	pinMode(m_pinDIO, OUTPUT);
 	delayMicroseconds(BITDELAY);
 	pinMode(m_pinClk, INPUT);
 	delayMicroseconds(BITDELAY);
 	pinMode(m_pinDIO, INPUT);
 	delayMicroseconds(BITDELAY);
-	}
+}
 
-void TMwriteByte(uint8_t b)
-	{
+void TMwriteByte(uint8_t b) {
 	uint8_t data = b;
 	
 	// 8 Data Bits
-	for(uint8_t i = 0; i < 8; i++)
-		{
+	for(uint8_t i = 0; i < 8; i++) {
 		// CLK low
 		pinMode(m_pinClk, OUTPUT);
 		delayMicroseconds(BITDELAY);
@@ -98,7 +91,7 @@ void TMwriteByte(uint8_t b)
 		pinMode(m_pinClk, INPUT);
 		delayMicroseconds(BITDELAY);
 		data = data >> 1;
-		}
+	}
 
 	// Wait for acknowledge
 	// CLK to zero
@@ -113,14 +106,14 @@ void TMwriteByte(uint8_t b)
 	delayMicroseconds(BITDELAY);
 	pinMode(m_pinClk, OUTPUT);
 	delayMicroseconds(BITDELAY);
-	}
+}
 
-void TMsetup(uint8_t pinClk, uint8_t pinDIO)
+void TMsetup(uint8_t pinClk, uint8_t pinDIO) {
   //! Initialize a TMsetup object, setting the clock and data pins
   //! (uses wiringpi numbering scheme : https://pinout.xyz/pinout/wiringpi#)
   //! @param pinClk : digital pin connected to the clock pin of the module
   //! @param pinDIO : digital pin connected to the DIO pin of the module
-	{
+
 	wiringPiSetup();
 
 	// Copy the pin numbers
@@ -133,19 +126,19 @@ void TMsetup(uint8_t pinClk, uint8_t pinDIO)
 	pinMode(m_pinDIO,INPUT);
 	digitalWrite(m_pinClk, LOW);
 	digitalWrite(m_pinDIO, LOW);
-	}
+}
 
-void TMsetBrightness(uint8_t brightness)
+void TMsetBrightness(uint8_t brightness) {
   //! Sets the brightness of the display.
   //!
   //! Takes effect when a command is given to change the data being displayed.
   //!
   //! @param brightness A number from 0 (lower brightness) to 7 (highest brightness)
-  	{
+  	
 	m_brightness = ((brightness & 0x7) | 0x08) & 0x0f;
-	}
+}
 
-void TMsetSegments(const uint8_t segments[], uint8_t length, uint8_t pos)
+void TMsetSegments(const uint8_t segments[], uint8_t length, uint8_t pos) {
   //! Display arbitrary data on the module
   //!
   //! This function receives raw segment values as input and displays them. The segment data
@@ -158,7 +151,7 @@ void TMsetSegments(const uint8_t segments[], uint8_t length, uint8_t pos)
   //! @param segments An array of size @ref length containing the raw segment values
   //! @param length The number of digits to be modified
   //! @param pos The position from which to start the modification (0 - leftmost, 3 - rightmost)
-	{
+	
 	// Write COMM1
 	TMstartWrite();
 	TMwriteByte(TM1637_I2C_COMM1);
@@ -178,14 +171,13 @@ void TMsetSegments(const uint8_t segments[], uint8_t length, uint8_t pos)
 	TMstartWrite();
 	TMwriteByte(TM1637_I2C_COMM3 + m_brightness);
 	TMstopWrite();
-	}
+}
 
-void TMclear()
-	{
+void TMclear() {
 	TMsetSegments(blank,4,0);
-	}
+}
 
-void TMshowNumber(int num, uint8_t dots, bool leading_zero, uint8_t length, uint8_t pos)
+void TMshowNumber(int num, uint8_t dots, bool leading_zero, uint8_t length, uint8_t pos) {
   //! Displays a decimal number, with dot control
   //!
   //! Displays the given argument as a decimal number. The dots between the digits (or colon)
@@ -208,41 +200,38 @@ void TMshowNumber(int num, uint8_t dots, bool leading_zero, uint8_t length, uint
   //!        blank
   //! @param length The number of digits to set
   //! @param pos The position least significant digit (0 - leftmost, 3 - rightmost)
-	{
+	
 	uint8_t digits[4];
 	const static int divisors[] = { 1, 10, 100, 1000 };
 	bool leading = true;
 	
-	for(int8_t k = 0; k < 4; k++)
-		{
+	for(int8_t k = 0; k < 4; k++) {
 		int divisor = divisors[4 - 1 - k];
 		int d = num / divisor;
 		uint8_t digit = 0;
 		
-		if (d == 0)
-			{
+		if (d == 0) {
 			if (leading_zero || !leading || (k == 3)) digit = digitToSegment[d];
 			else digit = 0;
-			}
-		else
-			{
+		}
+		else {
 			digit = digitToSegment[d];
 			num -= d * divisor;
 			leading = false;
-			}
+		}
 	
 		// Add the decimal point/colon to the digit
 		digit |= (dots & 0x80); 
 		dots <<= 1;
 		digits[k] = digit;
-		}
-	
-	TMsetSegments(digits + (4 - length), length, pos);
 	}
 	
-void TMshowDouble(double x)
+	TMsetSegments(digits + (4 - length), length, pos);
+}
+	
+void TMshowDouble(double x) {
 	//! Displays a double as 00.00
-	{
+	
 	const uint8_t
     	minus[] =     {64,64,64,64},
     	zeropoint[] = {0B10111111};
@@ -250,17 +239,14 @@ void TMshowDouble(double x)
 	if (x>99) x=99.99;
 	x100=x*(x<0 ? -1000 : 1000);// round and abs
 	x100=x100/10+(x100%10 > 4);	//
-	if (x100<100)
-		{
+	if (x100<100) {
 		TMsetSegments(zeropoint,1,1);
 		TMshowNumber(x100,0b1000000,true,2,2);
 		TMsetSegments(x<0 ? minus : blank , 1, 0);
-		}
-	else if (x<0)
-		{
+	}
+	else if (x<0) {
 		TMsetSegments(minus, 1, 0);
 		TMshowNumber(x100,0b1000000,false,3,1);
-		}
-	else TMshowNumber(x100,0b1000000,false,4,0);
 	}
-
+	else TMshowNumber(x100,0b1000000,false,4,0);
+}

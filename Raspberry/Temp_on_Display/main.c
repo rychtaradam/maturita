@@ -11,9 +11,6 @@ const uint8_t celsia[] = {
   0b01100011, // Stupeň
   0b00111001  // C
 };
-/*const uint8_t stupen[] = {
-  SEG_A | SEG_D | SEG_E | SEG_F   // C
-};*/
 
 volatile sig_atomic_t sigintFlag = 0;
 
@@ -47,10 +44,10 @@ int main(int argc, char **argv) {
 
     SensorList *sensorList = GetSensors(sensorNames, sensorNamesCount);
     if(sensorList->SensorCount == 0) {
-        printf("No sensors found - exiting.\n");
+        printf("Nenalezeny zadne senzory.\n");
         return 0;
     }
-    printf("Attached Sensors: %d\n", sensorList->SensorCount);
+    printf("Pripojene senzory: %d\n", sensorList->SensorCount);
 
     ReadTemperatureLoop(sensorList);        
     Cleanup(sensorList);   
@@ -58,7 +55,7 @@ int main(int argc, char **argv) {
 
 
 void Cleanup(SensorList *sensorList) {
-    printf("Exiting...\n");
+    printf("Vypnuti...\n");
     FreeSensors(sensorList);
     TMclear();
 }
@@ -81,6 +78,6 @@ void LogTemperature(Sensor *sensor, float temperature, int temp) {
     strftime(dateTimeStringBuffer, 32, "%Y-%m-%d %H:%M:%S", localtime(&currentTime));
 
     printf("%s - %s - %.2fC\n", dateTimeStringBuffer, sensor->SensorName, temperature);
-    TMshowNumber(temp, 0b11100000, false, 2, 0);
+    TMshowNumber(temp, false, false, 2, 0);
     TMsetSegments(celsia, 2, 2);
 }

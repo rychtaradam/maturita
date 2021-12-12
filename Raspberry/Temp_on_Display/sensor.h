@@ -8,14 +8,12 @@
 #define DS18B20FAMILYCODE "28"
 #define DEFAULTSENSORNAME "Sensor"
 
-typedef struct Sensor
-{
+typedef struct Sensor {
     char *SensorName;
     FILE *SensorFile;    
 } Sensor;
 
-typedef struct SensorList
-{
+typedef struct SensorList {
     Sensor **Sensors;
     int SensorCount;
 } SensorList;

@@ -1,7 +1,5 @@
 #ifndef _main_h
-#define _main_h 
-
-#define LCDADDRESS 0x27
+#define _main_h
 
 #include "sensor.h"
 

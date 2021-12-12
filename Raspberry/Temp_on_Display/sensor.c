@@ -4,8 +4,7 @@
 #include <stdlib.h> 
 #include <string.h>
 
-SensorList *GetSensors(char **sensorNames, int sensorNamesCount)
-{
+SensorList *GetSensors(char **sensorNames, int sensorNamesCount) {
     DIR *dir;
     struct dirent *dirEntry;
 
@@ -15,10 +14,8 @@ SensorList *GetSensors(char **sensorNames, int sensorNamesCount)
     if(!(dir = opendir(ONEWIREDEVICELOCATION)))
         return sensorList;
 
-    while((dirEntry = readdir(dir)))
-    {        
-        if(strncmp(dirEntry->d_name, DS18B20FAMILYCODE, strlen(DS18B20FAMILYCODE)) == 0)
-        {
+    while((dirEntry = readdir(dir))) {        
+        if(strncmp(dirEntry->d_name, DS18B20FAMILYCODE, strlen(DS18B20FAMILYCODE)) == 0) {
             sensorList->SensorCount++;
         }
     }
@@ -32,19 +29,15 @@ SensorList *GetSensors(char **sensorNames, int sensorNamesCount)
     Sensor **currentSensor = sensorList->Sensors;   
 
     int sensorNamesAllocated = 0;
-    while((dirEntry = readdir(dir)))
-    {        
-        if(strncmp(dirEntry->d_name, DS18B20FAMILYCODE, strlen(DS18B20FAMILYCODE)) == 0)
-        {   
+    while((dirEntry = readdir(dir))) {        
+        if(strncmp(dirEntry->d_name, DS18B20FAMILYCODE, strlen(DS18B20FAMILYCODE)) == 0) {   
             char *sensorName;
-            if(sensorNamesCount > sensorNamesAllocated)
-            {
+            if(sensorNamesCount > sensorNamesAllocated) {
                 sensorName = strdup(*sensorNames);
                 sensorNames++;
                 sensorNamesAllocated++;
             }
-            else
-            {
+            else {
                 sensorName = strdup(DEFAULTSENSORNAME);
             }
 
@@ -58,16 +51,14 @@ SensorList *GetSensors(char **sensorNames, int sensorNamesCount)
     return sensorList;
 }
 
-Sensor *GetSensor(char *sensorId, char *sensorName)
-{
+Sensor *GetSensor(char *sensorId, char *sensorName) {
     Sensor *sensor = malloc(sizeof(Sensor));
     sensor->SensorFile = fopen(sensorId, "r");
     sensor->SensorName = sensorName;
     return sensor;
 }
 
-float ReadTemperature(const Sensor *sensor)
-{
+float ReadTemperature(const Sensor *sensor) {
     long deviceFileSize;
     char *buffer;
 
@@ -80,8 +71,7 @@ float ReadTemperature(const Sensor *sensor)
     
     fread(buffer, sizeof(char), deviceFileSize, deviceFile);
     char *temperatureComponent = strstr(buffer, "t=");
-    if(!temperatureComponent)
-    {
+    if(!temperatureComponent) {
         free(buffer);
         return -1;
     }
@@ -100,13 +90,11 @@ float ReadTemperature(const Sensor *sensor)
     return temperatureFloat;
 }
 
-void FreeSensors(SensorList *sensorList)
-{
+void FreeSensors(SensorList *sensorList) {
     if(!sensorList)
         return;
     
-    for(int i = 0; i < sensorList->SensorCount; i++)
-    {
+    for(int i = 0; i < sensorList->SensorCount; i++) {
         FreeSensor(sensorList->Sensors[i]);
     }
 
@@ -114,8 +102,7 @@ void FreeSensors(SensorList *sensorList)
     free(sensorList);
 }
 
-void FreeSensor(Sensor *sensor)
-{
+void FreeSensor(Sensor *sensor) {
     if(!sensor)
         return;
 
