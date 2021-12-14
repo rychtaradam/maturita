@@ -1,4 +1,6 @@
 # Ročníkový projekt
+Veřejný server: http://vaqe.net/
+
 
 ## Využité technologie, komponenty, stroje a aplikace
    ### Komponenty a stroje
@@ -6,14 +8,21 @@
       - Display TM1637
       - Teplotní sonda DS18B20
       - Tiskárna Ender 3 V2
+      
    ### Technologie
-      - Flask nebo Django
+      - Django
+      - Docker
+      - MQTT
       - Blynk - aplikace v mobilu na custom projekty
+      
    ### Aplikace na programování a grafiku
       - PyCharm
       - Autodesk Inventor
       - Arduino IDE
       - Diagram - https://app.diagrams.net/
+
+   ### Spuštění na serveru
+      - docker-compose -f local.yml build && docker-compose -f local.yml up
 
 ## Rok 2019
 
@@ -51,4 +60,3 @@
    - Návrh diagramu 
    ### 22.10. 2021
    - Instalace Raspbian OS
-   - Vytvoření Mock-up základních funkcí v C++
