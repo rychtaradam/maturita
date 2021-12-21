@@ -60,3 +60,5 @@ Veřejný server: http://vaqe.net/
    - Návrh diagramu 
    ### 22.10. 2021
    - Instalace Raspbian OS
+
+https://github.com/iothon/docker-compose-mqtt-influxdb-grafana
