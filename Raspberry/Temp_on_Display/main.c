@@ -8,9 +8,13 @@
 #include "tm1637.h"
 
 const uint8_t celsia[] = {
-  0b01100011, // Stupeň
-  0b00111001  // C
+	0b01100011, // Stupeň
+	0b00111001  // C
 };
+
+const uint8_t stupen[] = {
+	0b01100011, // Stupeň
+}
 
 volatile sig_atomic_t sigintFlag = 0;
 
@@ -77,7 +81,12 @@ void LogTemperature(Sensor *sensor, float temperature, int temp) {
     char dateTimeStringBuffer[32];
     strftime(dateTimeStringBuffer, 32, "%Y-%m-%d %H:%M:%S", localtime(&currentTime));
 
-    printf("%s - %s - %.2fC\n", dateTimeStringBuffer, sensor->SensorName, temperature);
-    TMshowNumber(temp, false, false, 2, 0);
-    TMsetSegments(celsia, 2, 2);
+    //printf("%s - %s - %.2fC\n", dateTimeStringBuffer, sensor->SensorName, temperature);
+	TMshowNumber(temp, false, false, 2, 0);
+	if(temp < -9 || temp > 99){
+		TMsetSegments(stupen, 1, 3);
+	}
+	else {
+		TMsetSegments(celsia, 2, 2);
+	}
 }
