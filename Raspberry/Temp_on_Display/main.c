@@ -82,11 +82,12 @@ void LogTemperature(Sensor *sensor, float temperature, int temp) {
     strftime(dateTimeStringBuffer, 32, "%Y-%m-%d %H:%M:%S", localtime(&currentTime));
 
     printf("%s - %s - %.2fC\n", dateTimeStringBuffer, sensor->SensorName, temperature);
-	TMshowNumber(temp, false, false, 2, 0);
 	if(temp < -9 || temp > 99){
+		TMshowNumber(temp, false, false, 3, 0);
 		TMsetSegments(stupen, 1, 3);
 	}
 	else {
+		TMshowNumber(temp, false, false, 2, 0);
 		TMsetSegments(celsia, 2, 2);
 	}
 }
