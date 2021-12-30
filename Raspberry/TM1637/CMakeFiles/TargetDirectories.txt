@@ -1,3 +1,0 @@
-/home/pi/Desktop/maturita/Raspberry/TM1637/CMakeFiles/rebuild_cache.dir
-/home/pi/Desktop/maturita/Raspberry/TM1637/CMakeFiles/Display.dir
-/home/pi/Desktop/maturita/Raspberry/TM1637/CMakeFiles/edit_cache.dir

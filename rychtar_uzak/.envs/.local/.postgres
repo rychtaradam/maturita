@@ -1,7 +1,0 @@
-# PostgreSQL
-# ------------------------------------------------------------------------------
-POSTGRES_HOST=postgres
-POSTGRES_PORT=5432
-POSTGRES_DB=rychtar_uzak
-POSTGRES_USER=qesWkXzJaoLpimygxIbrldRWRszHusmD
-POSTGRES_PASSWORD=q1Z3hi64RMxZpLvJlzdOm4D6lH0UkQeDwWJXsqGMEyuXFhB1tjcJd2hHudX3BnPb

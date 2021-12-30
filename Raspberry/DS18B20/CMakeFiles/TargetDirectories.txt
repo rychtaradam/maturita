@@ -1,3 +1,0 @@
-/home/pi/Desktop/maturita/Raspberry/DS18B20/CMakeFiles/rebuild_cache.dir
-/home/pi/Desktop/maturita/Raspberry/DS18B20/CMakeFiles/DS18B20Reader.dir
-/home/pi/Desktop/maturita/Raspberry/DS18B20/CMakeFiles/edit_cache.dir
