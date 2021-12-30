@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.16)
-project(Temp_on_Display)
+project(Teplomer)
 find_library(WIRINGPI_LIBRARIES NAMES wiringPi)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(Mosquitto REQUIRED IMPORTED_TARGET libmosquitto)
 set(SOURCE main.c sensor.c sensor.h tm1637.h)
 set(CMAKE_BUILD_TYPE Debug)
-add_executable(Display ${SOURCE})
-target_link_libraries(Display ${WIRINGPI_LIBRARIES} PkgConfig::Mosquitto)
+add_executable(Teplomer ${SOURCE})
+target_link_libraries(Teplomer ${WIRINGPI_LIBRARIES} PkgConfig::Mosquitto)
 
