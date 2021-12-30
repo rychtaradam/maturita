@@ -60,6 +60,7 @@ int main(int argc, char **argv) {
     Cleanup(sensorList);
 }
 
+// Připujoje se na MQTT brokera a posílá data o teplotě do topicu
 void publish(char stemp[4]) {
         int rc;
         struct mosquitto * mosq;
@@ -86,6 +87,7 @@ void Cleanup(SensorList *sensorList) {
     TMclear();
 }
 
+// Čte teplotu z čidla
 void ReadTemperatureLoop(SensorList *sensorList) {
     while(!sigintFlag) {
         for(int i = 0; i < sensorList->SensorCount; i++) {
@@ -96,6 +98,7 @@ void ReadTemperatureLoop(SensorList *sensorList) {
     }
 }
 
+// Zaznamenává teplotu a vypisuje jí na displej a do konzole (pro debugging)
 void LogTemperature(Sensor *sensor, float temperature, int temp) {
     time_t currentTime;
     time(&currentTime);
@@ -106,6 +109,8 @@ void LogTemperature(Sensor *sensor, float temperature, int temp) {
     sprintf(stemp, "%d", temp);
     publish(stemp);
     printf("%s - %s - %.2fC\n", dateTimeStringBuffer, sensor->SensorName, temperature);
+
+    // Zjišťuje "délku" čísla a rozhoduje zda-li vypsat "°C", nebo jenom "°" (nedostatek místa na displeji při tří místném čísle)
 	if(temp < -9 || temp > 99){
 		TMshowNumber(temp, false, false, 3, 0);
 		TMsetSegments(stupen, 1, 3);

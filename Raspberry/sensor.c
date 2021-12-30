@@ -4,6 +4,7 @@
 #include <stdlib.h> 
 #include <string.h>
 
+// Zjistí všechny dostupné teplotní čidla
 SensorList *GetSensors(char **sensorNames, int sensorNamesCount) {
     DIR *dir;
     struct dirent *dirEntry;
@@ -58,6 +59,7 @@ Sensor *GetSensor(char *sensorId, char *sensorName) {
     return sensor;
 }
 
+// Čte teplotu z čidla
 float ReadTemperature(const Sensor *sensor) {
     long deviceFileSize;
     char *buffer;
@@ -90,6 +92,7 @@ float ReadTemperature(const Sensor *sensor) {
     return temperatureFloat;
 }
 
+// Uvolňuje čídlo
 void FreeSensors(SensorList *sensorList) {
     if(!sensorList)
         return;

@@ -1,5 +1,5 @@
 # Ročníkový projekt
-Veřejný server: http://vaqe.net/
+Veřejný server (Grafana): http://vaqe.net:3000/
 
 
 ## Využité technologie, komponenty, stroje a aplikace
@@ -10,19 +10,17 @@ Veřejný server: http://vaqe.net/
       - Tiskárna Ender 3 V2
       
    ### Technologie
-      - Django
       - Docker
       - MQTT
-      - Blynk - aplikace v mobilu na custom projekty
+      - Node-RED
+      - InfluxDB
       
-   ### Aplikace na programování a grafiku
-      - PyCharm
-      - Autodesk Inventor
+   ### Aplikace na programování a grafika
+      - Fusion 360
       - Arduino IDE
       - Diagram - https://app.diagrams.net/
-
-   ### Spuštění na serveru
-      - docker-compose -f local.yml build && docker-compose -f local.yml up
+      - Time Series Admin (https://github.com/timeseriesadmin/timeseriesadmin)
+      - nano (Linux, VIM neumím vypnout :D)
 
 ## Rok 2019
 
@@ -56,9 +54,38 @@ Veřejný server: http://vaqe.net/
 - Rozhodl jsem se celý projekt překopat a hlavně vyloučit použití Arduina UNO.
 - Místo něho jsem začal s přípravami na Raspberry Pi 3 Model B.
 
-   ### 1.10. 2021
+   ### 1.10.2021
    - Návrh diagramu 
-   ### 22.10. 2021
+   ### 22.10.2021
    - Instalace Raspbian OS
-
-https://github.com/iothon/docker-compose-mqtt-influxdb-grafana
+   - První kód
+   ### 30.10.2021
+   - Přechod z C++ na C (z důvodu dostupnosti knihoven)
+   - Zprovoznění všech knihoven pro obsluhu čidla a displeje
+   ### 4.11.2021 
+   - Začátek návrhu krabičky pomocí Fusion 360
+   ### 17.11.2021
+   - Dokončení krabičky
+   ### 2.12.2021
+   - Zprovoznění výpis teploty do konzole
+   ### 8.12.2021
+   - Zprovoznění výpisu teploty na displej
+   ### 12.12.2021
+   - Úprava kódu
+   ### 14.12.2021
+   - Zrušení Djanga
+   - Instalace Grafany
+   - Zkouška MQTT komunikace nanečisto v Pythonu (test brokera)
+   ### 21.12.2021
+   - Upravení funkce výpisu na displej
+   ### 29.12.2021
+   - Instalace Node-RED
+   - Instalace InfluxDB
+   - Zprovoznění Grafany
+   - Zprovoznění MQTT na Raspberry Pi
+   - Vytvoření dokumentace
+   ### 30.12.2021
+   - Nahrání 3D modelu krabičky
+   - Nahrání obrázků navrhnuté krabičky
+   - Úprava vzhledu kódu a poznámky programátora
+   - Nahrání všech souborů ze serveru
