@@ -1,0 +1,42 @@
+version: '3.7'
+
+services:
+  influxdb:
+    image: influxdb:1.7
+    container_name: influxdb
+    ports:
+      - 8086:8086
+    volumes:
+      - ${DATA_DIR}/influxdb:/var/lib/influxdb
+    restart: always
+
+  grafana:
+    image: grafana/grafana:8.3.3
+    container_name: grafana
+    depends_on:
+      - influxdb
+    ports:
+      - 3000:3000   
+    volumes:
+      - ${DATA_DIR}/grafana:/var/lib/grafana
+    restart: always
+
+  node-red:
+    image: nodered/node-red:latest
+    container_name: node-red
+    environment:
+      - TZ=Europe/Prague
+    ports:
+      - "1880:1880"
+    networks:
+      - node-red-net
+    volumes:
+      - node-red-data:/data
+    restart: always
+
+volumes:
+  node-red-data:
+
+networks:
+  node-red-net:
+
