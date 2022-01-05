@@ -1,42 +1,80 @@
-version: '3.7'
-
+version: '3.6'
 services:
   influxdb:
-    image: influxdb:1.7
     container_name: influxdb
+    image: "influxdb:1.8"
+    restart: unless-stopped
     ports:
-      - 8086:8086
-    volumes:
-      - ${DATA_DIR}/influxdb:/var/lib/influxdb
-    restart: always
-
-  grafana:
-    image: grafana/grafana:8.3.3
-    container_name: grafana
-    depends_on:
-      - influxdb
-    ports:
-      - 3000:3000   
-    volumes:
-      - ${DATA_DIR}/grafana:/var/lib/grafana
-    restart: always
-
-  node-red:
-    image: nodered/node-red:latest
-    container_name: node-red
+    - "8086:8086"
     environment:
-      - TZ=Europe/Prague
-    ports:
-      - "1880:1880"
-    networks:
-      - node-red-net
+    - INFLUXDB_HTTP_FLUX_ENABLED=false
+    - INFLUXDB_REPORTING_DISABLED=false
+    - INFLUXDB_HTTP_AUTH_ENABLED=false
+    - INFLUX_USERNAME=dba
+    - INFLUX_PASSWORD=supremo
+    - INFLUXDB_UDP_ENABLED=false
+    - INFLUXDB_UDP_BIND_ADDRESS=0.0.0.0:8086
+    - INFLUXDB_UDP_DATABASE=udp
     volumes:
-      - node-red-data:/data
-    restart: always
+    - ./volumes/influxdb/data:/var/lib/influxdb
+    - ./backups/influxdb/db:/var/lib/influxdb/backup
+    networks:
+    - iotstack_nw
 
-volumes:
-  node-red-data:
+  mosquitto:
+    container_name: mosquitto
+    build: ./.templates/mosquitto/.
+    restart: unless-stopped
+    environment:
+    - TZ=Etc/UTC
+    ports:
+    - "1883:1883"
+    volumes:
+    - ./volumes/mosquitto/config:/mosquitto/config
+    - ./volumes/mosquitto/data:/mosquitto/data
+    - ./volumes/mosquitto/log:/mosquitto/log
+    - ./volumes/mosquitto/pwfile:/mosquitto/pwfile
+    networks:
+    - iotstack_nw
+  grafana:
+    container_name: grafana
+    image: grafana/grafana
+    restart: unless-stopped
+    user: "0"
+    ports:
+    - "3000:3000"
+    environment:
+    - GF_PATHS_DATA=/var/lib/grafana
+    - GF_PATHS_LOGS=/var/log/grafana
+    volumes:
+    - ./volumes/grafana/data:/var/lib/grafana
+    - ./volumes/grafana/log:/var/log/grafana
+    networks:
+    - iotstack_nw
 
+  nodered:
+    container_name: nodered
+    build: ./services/nodered/.
+    restart: unless-stopped
+    user: "0"
+    environment:
+    - TZ=Etc/UTC
+    ports:
+    - "1880:1880"
+    volumes:
+    - ./volumes/nodered/data:/data
+    - ./volumes/nodered/ssh:/root/.ssh
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket
+    networks:
+    - iotstack_nw
 networks:
-  node-red-net:
-
+  iotstack_nw: # Exposed by your host.
+    # external: true
+    name: IOTstack_Net
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 10.77.60.0/24
+        # - gateway: 10.77.60.1
