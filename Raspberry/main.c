@@ -4,10 +4,13 @@
 #include <time.h>
 #include <signal.h>
 #include <mosquitto.h>
+#include <wiringPi.h>
 
 #include "main.h"
 #include "sensor.h"
 #include "tm1637.h"
+
+const int buzzer = 2;
 
 const uint8_t celsia[] = {
 	0b01100011, // Stupeň
@@ -30,12 +33,15 @@ void signaux(int sigtype) {
 }
 
 int main(int argc, char **argv) {
-	signal(SIGINT,signaux);
-	signal(SIGTERM,signaux);
-	TMsetup(29,28);
-	TMsetBrightness(6);
+    signal(SIGINT,signaux);
+    signal(SIGTERM,signaux);
+    TMsetup(29,28);
+    TMsetBrightness(6);
 
     signal(SIGINT, onSigInt);
+
+    wiringPiSetup();
+    pinMode(buzzer, OUTPUT);
 
     char **sensorNames;
     int sensorNamesCount;
@@ -60,14 +66,14 @@ int main(int argc, char **argv) {
     Cleanup(sensorList);
 }
 
-// Připujoje se na MQTT brokera a posílá data o teplotě do topicu
+// Připojuje se na MQTT brokera a posílá data o teplotě do topicu
 void publish(char stemp[4]) {
         int rc;
         struct mosquitto * mosq;
 
         mosquitto_lib_init();
         mosq = mosquitto_new("publisher", true, NULL);
-        rc = mosquitto_connect(mosq, "mqtt.eclipseprojects.io", 1883, 60);
+        rc = mosquitto_connect(mosq, "vaqe.net", 1883, 60);
         if(rc != 0){
                 printf("Nelze se pripojit k brokerovi! Error Code: %d\n", rc);
                 mosquitto_destroy(mosq);
@@ -94,6 +100,12 @@ void ReadTemperatureLoop(SensorList *sensorList) {
             float temperature = ReadTemperature(sensorList->Sensors[i]);
             int temp = ReadTemperature(sensorList->Sensors[i]);
             LogTemperature(sensorList->Sensors[i], temperature, temp);
+
+	    if(temperature > 90) {
+		digitalWrite(buzzer, 1000);
+		delay(500);
+		digitalWrite(buzzer, 0);
+	    }
         }
     }
 }

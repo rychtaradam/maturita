@@ -44,16 +44,16 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/pi/maturita/Raspberry/Temp_on_Display
+CMAKE_SOURCE_DIR = /home/pi/maturita/Raspberry
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pi/maturita/Raspberry/Temp_on_Display/cmake-files
+CMAKE_BINARY_DIR = /home/pi/maturita/Raspberry/cmake-files
 
 #=============================================================================
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/Display.dir/all
+all: CMakeFiles/Teplomer.dir/all
 
 .PHONY : all
 
@@ -63,36 +63,36 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/Display.dir/clean
+clean: CMakeFiles/Teplomer.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/Display.dir
+# Target rules for target CMakeFiles/Teplomer.dir
 
 # All Build rule for target.
-CMakeFiles/Display.dir/all:
-	$(MAKE) -f CMakeFiles/Display.dir/build.make CMakeFiles/Display.dir/depend
-	$(MAKE) -f CMakeFiles/Display.dir/build.make CMakeFiles/Display.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pi/maturita/Raspberry/Temp_on_Display/cmake-files/CMakeFiles --progress-num=1,2,3 "Built target Display"
-.PHONY : CMakeFiles/Display.dir/all
+CMakeFiles/Teplomer.dir/all:
+	$(MAKE) -f CMakeFiles/Teplomer.dir/build.make CMakeFiles/Teplomer.dir/depend
+	$(MAKE) -f CMakeFiles/Teplomer.dir/build.make CMakeFiles/Teplomer.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pi/maturita/Raspberry/cmake-files/CMakeFiles --progress-num=1,2,3 "Built target Teplomer"
+.PHONY : CMakeFiles/Teplomer.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/Display.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pi/maturita/Raspberry/Temp_on_Display/cmake-files/CMakeFiles 3
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Display.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pi/maturita/Raspberry/Temp_on_Display/cmake-files/CMakeFiles 0
-.PHONY : CMakeFiles/Display.dir/rule
+CMakeFiles/Teplomer.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pi/maturita/Raspberry/cmake-files/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Teplomer.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pi/maturita/Raspberry/cmake-files/CMakeFiles 0
+.PHONY : CMakeFiles/Teplomer.dir/rule
 
 # Convenience name for target.
-Display: CMakeFiles/Display.dir/rule
+Teplomer: CMakeFiles/Teplomer.dir/rule
 
-.PHONY : Display
+.PHONY : Teplomer
 
 # clean rule for target.
-CMakeFiles/Display.dir/clean:
-	$(MAKE) -f CMakeFiles/Display.dir/build.make CMakeFiles/Display.dir/clean
-.PHONY : CMakeFiles/Display.dir/clean
+CMakeFiles/Teplomer.dir/clean:
+	$(MAKE) -f CMakeFiles/Teplomer.dir/build.make CMakeFiles/Teplomer.dir/clean
+.PHONY : CMakeFiles/Teplomer.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

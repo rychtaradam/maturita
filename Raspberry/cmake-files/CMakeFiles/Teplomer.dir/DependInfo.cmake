@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/pi/maturita/Raspberry/Temp_on_Display/main.c" "/home/pi/maturita/Raspberry/Temp_on_Display/cmake-files/CMakeFiles/Display.dir/main.c.o"
-  "/home/pi/maturita/Raspberry/Temp_on_Display/sensor.c" "/home/pi/maturita/Raspberry/Temp_on_Display/cmake-files/CMakeFiles/Display.dir/sensor.c.o"
+  "/home/pi/maturita/Raspberry/main.c" "/home/pi/maturita/Raspberry/cmake-files/CMakeFiles/Teplomer.dir/main.c.o"
+  "/home/pi/maturita/Raspberry/sensor.c" "/home/pi/maturita/Raspberry/cmake-files/CMakeFiles/Teplomer.dir/sensor.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

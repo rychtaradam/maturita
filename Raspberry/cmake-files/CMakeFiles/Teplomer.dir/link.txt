@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/Teplomer.dir/main.c.o CMakeFiles/Teplomer.dir/sensor.c.o  -o Teplomer  /usr/lib/libwiringPi.so /usr/lib/arm-linux-gnueabihf/libmosquitto.so 

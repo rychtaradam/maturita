@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/pi/maturita/Raspberry/Temp_on_Display
+CMAKE_SOURCE_DIR = /home/pi/maturita/Raspberry
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pi/maturita/Raspberry/Temp_on_Display/cmake-files
+CMAKE_BINARY_DIR = /home/pi/maturita/Raspberry/cmake-files
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pi/maturita/Raspberry/Temp_on_Display/cmake-files/CMakeFiles /home/pi/maturita/Raspberry/Temp_on_Display/cmake-files/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pi/maturita/Raspberry/cmake-files/CMakeFiles /home/pi/maturita/Raspberry/cmake-files/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pi/maturita/Raspberry/Temp_on_Display/cmake-files/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pi/maturita/Raspberry/cmake-files/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Display
+# Target rules for targets named Teplomer
 
 # Build rule for target.
-Display: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Display
-.PHONY : Display
+Teplomer: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Teplomer
+.PHONY : Teplomer
 
 # fast build rule for target.
-Display/fast:
-	$(MAKE) -f CMakeFiles/Display.dir/build.make CMakeFiles/Display.dir/build
-.PHONY : Display/fast
+Teplomer/fast:
+	$(MAKE) -f CMakeFiles/Teplomer.dir/build.make CMakeFiles/Teplomer.dir/build
+.PHONY : Teplomer/fast
 
 main.o: main.c.o
 
@@ -129,7 +129,7 @@ main.o: main.c.o
 
 # target to build an object file
 main.c.o:
-	$(MAKE) -f CMakeFiles/Display.dir/build.make CMakeFiles/Display.dir/main.c.o
+	$(MAKE) -f CMakeFiles/Teplomer.dir/build.make CMakeFiles/Teplomer.dir/main.c.o
 .PHONY : main.c.o
 
 main.i: main.c.i
@@ -138,7 +138,7 @@ main.i: main.c.i
 
 # target to preprocess a source file
 main.c.i:
-	$(MAKE) -f CMakeFiles/Display.dir/build.make CMakeFiles/Display.dir/main.c.i
+	$(MAKE) -f CMakeFiles/Teplomer.dir/build.make CMakeFiles/Teplomer.dir/main.c.i
 .PHONY : main.c.i
 
 main.s: main.c.s
@@ -147,7 +147,7 @@ main.s: main.c.s
 
 # target to generate assembly for a file
 main.c.s:
-	$(MAKE) -f CMakeFiles/Display.dir/build.make CMakeFiles/Display.dir/main.c.s
+	$(MAKE) -f CMakeFiles/Teplomer.dir/build.make CMakeFiles/Teplomer.dir/main.c.s
 .PHONY : main.c.s
 
 sensor.o: sensor.c.o
@@ -156,7 +156,7 @@ sensor.o: sensor.c.o
 
 # target to build an object file
 sensor.c.o:
-	$(MAKE) -f CMakeFiles/Display.dir/build.make CMakeFiles/Display.dir/sensor.c.o
+	$(MAKE) -f CMakeFiles/Teplomer.dir/build.make CMakeFiles/Teplomer.dir/sensor.c.o
 .PHONY : sensor.c.o
 
 sensor.i: sensor.c.i
@@ -165,7 +165,7 @@ sensor.i: sensor.c.i
 
 # target to preprocess a source file
 sensor.c.i:
-	$(MAKE) -f CMakeFiles/Display.dir/build.make CMakeFiles/Display.dir/sensor.c.i
+	$(MAKE) -f CMakeFiles/Teplomer.dir/build.make CMakeFiles/Teplomer.dir/sensor.c.i
 .PHONY : sensor.c.i
 
 sensor.s: sensor.c.s
@@ -174,7 +174,7 @@ sensor.s: sensor.c.s
 
 # target to generate assembly for a file
 sensor.c.s:
-	$(MAKE) -f CMakeFiles/Display.dir/build.make CMakeFiles/Display.dir/sensor.c.s
+	$(MAKE) -f CMakeFiles/Teplomer.dir/build.make CMakeFiles/Teplomer.dir/sensor.c.s
 .PHONY : sensor.c.s
 
 # Help Target
@@ -184,7 +184,7 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... Display"
+	@echo "... Teplomer"
 	@echo "... edit_cache"
 	@echo "... main.o"
 	@echo "... main.i"

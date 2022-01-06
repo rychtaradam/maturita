@@ -1,1 +1,0 @@
-/usr/bin/cc -g   CMakeFiles/Display.dir/main.c.o CMakeFiles/Display.dir/sensor.c.o  -o Display  /usr/lib/libwiringPi.so /usr/lib/arm-linux-gnueabihf/libmosquitto.so 

@@ -1,3 +1,3 @@
-/home/pi/maturita/Raspberry/Temp_on_Display/cmake-files/CMakeFiles/rebuild_cache.dir
-/home/pi/maturita/Raspberry/Temp_on_Display/cmake-files/CMakeFiles/Display.dir
-/home/pi/maturita/Raspberry/Temp_on_Display/cmake-files/CMakeFiles/edit_cache.dir
+/home/pi/maturita/Raspberry/cmake-files/CMakeFiles/rebuild_cache.dir
+/home/pi/maturita/Raspberry/cmake-files/CMakeFiles/Teplomer.dir
+/home/pi/maturita/Raspberry/cmake-files/CMakeFiles/edit_cache.dir
