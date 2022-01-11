@@ -10,6 +10,9 @@
 #include "sensor.h"
 #include "tm1637.h"
 
+#define LIMIT 90
+
+
 const int buzzer = 2;
 
 const uint8_t celsia[] = {
@@ -101,7 +104,7 @@ void ReadTemperatureLoop(SensorList *sensorList) {
             int temp = ReadTemperature(sensorList->Sensors[i]);
             LogTemperature(sensorList->Sensors[i], temperature, temp);
 
-	    if(temperature > 90) {
+	    if(temperature > LIMIT) {
 		digitalWrite(buzzer, 1000);
 		delay(500);
 		digitalWrite(buzzer, 0);
