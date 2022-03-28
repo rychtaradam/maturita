@@ -81,13 +81,13 @@ void publish(char stemp[4]) {
                 printf("Nelze se pripojit k brokerovi! Error Code: %d\n", rc);
                 mosquitto_destroy(mosq);
         }
-        printf("Pripojeno k brokerovi!\n");
-
-        mosquitto_publish(mosq, NULL, "Rychtar/uzak", 2, stemp, 0, false);
-
-        mosquitto_disconnect(mosq);
-        mosquitto_destroy(mosq);
-        mosquitto_lib_cleanup();
+	else {
+		printf("Pripojeno k brokerovi!\n");
+        	mosquitto_publish(mosq, NULL, "Rychtar/uzak", 2, stemp, 0, false);
+        	mosquitto_disconnect(mosq);
+        	mosquitto_destroy(mosq);
+        	mosquitto_lib_cleanup();
+	}
 }
 
 void Cleanup(SensorList *sensorList) {
