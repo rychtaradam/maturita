@@ -69,25 +69,45 @@ int main(int argc, char **argv) {
     Cleanup(sensorList);
 }
 
+bool join_mqtt() {
+	int rc;
+	struct mosquitto * mosq;
+	
+	mosquitto_lib_init();
+	mosq = mosquitto_new("publisher", true, NULL);
+	if(mosquitto_connect(mosq, "vaqe.net", 1883, 10) == 0){
+		return 1;
+	}
+	else {
+		printf("Nelze se pripojit k brokerovi! Error Code: %d\n", rc);
+        mosquitto_destroy(mosq);
+		return 0;
+	}
+}
 // Připojuje se na MQTT brokera a posílá data o teplotě do topicu
 void publish(char stemp[4]) {
-        int rc;
-        struct mosquitto * mosq;
+    int rc;
+    struct mosquitto * mosq;
 
-        mosquitto_lib_init();
-        mosq = mosquitto_new("publisher", true, NULL);
-        rc = mosquitto_connect(mosq, "vaqe.net", 1883, 60);
-        if(rc != 0){
-                printf("Nelze se pripojit k brokerovi! Error Code: %d\n", rc);
-                mosquitto_destroy(mosq);
-        }
-	else {
+    mosquitto_lib_init();
+    mosq = mosquitto_new("publisher", true, NULL);
+    rc = mosquitto_connect(mosq, "vaqe.net", 1883, 60);
+	/*if(rc != 0){
+			printf("Nelze se pripojit k brokerovi! Error Code: %d\n", rc);
+			mosquitto_destroy(mosq);
+	}*/
+	printf("Pripojeno k brokerovi!\n");
+	mosquitto_publish(mosq, NULL, "Rychtar/uzak", 2, stemp, 0, false);
+	mosquitto_disconnect(mosq);
+	mosquitto_destroy(mosq);
+	mosquitto_lib_cleanup();
+	/*else {
 		printf("Pripojeno k brokerovi!\n");
-        	mosquitto_publish(mosq, NULL, "Rychtar/uzak", 2, stemp, 0, false);
-        	mosquitto_disconnect(mosq);
-        	mosquitto_destroy(mosq);
-        	mosquitto_lib_cleanup();
-	}
+		mosquitto_publish(mosq, NULL, "Rychtar/uzak", 2, stemp, 0, false);
+		mosquitto_disconnect(mosq);
+		mosquitto_destroy(mosq);
+		mosquitto_lib_cleanup();
+	}*/
 }
 
 void Cleanup(SensorList *sensorList) {
@@ -122,7 +142,9 @@ void LogTemperature(Sensor *sensor, float temperature, int temp) {
     strftime(dateTimeStringBuffer, 32, "%Y-%m-%d %H:%M:%S", localtime(&currentTime));
     char stemp[4];
     sprintf(stemp, "%d", temp);
-    publish(stemp);
+    if(join_mqtt()){
+		publish(stemp);
+	}
     printf("%s - %s - %.2fC\n", dateTimeStringBuffer, sensor->SensorName, temperature);
 
     // Zjišťuje "délku" čísla a rozhoduje zda-li vypsat "°C", nebo jenom "°" (nedostatek místa na displeji při tří místném čísle)
